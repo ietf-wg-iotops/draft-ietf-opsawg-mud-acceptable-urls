@@ -1,7 +1,7 @@
 ---
 title: Authorized update to MUD URLs
 abbrev: mud-acceptable-urls
-docname: draft-ietf-iotops-mud-acceptable-urls-00
+docname: draft-ietf-iotops-mud-acceptable-urls-01
 
 ipr: trust200902
 area: Operations
@@ -119,7 +119,7 @@ it is sufficient that some satisfactory initial trust is established.
 
 This section explains three scenarios where updating the MUD file in place
 could cause security issues for the devices involved.
-This section explains why changing the MUD url to point to a new file is important.
+This section explains why changing the MUD URL to point to a new file is important.
 
 
 ## Adding capabilities
@@ -173,7 +173,7 @@ MUD URLs can come from a number of sources:
 * IDevID Extensions
 * DHCP option
 * LLDP TLV
-* {{?RFC9238}} standardizes scanning MUD URLs from QRcodes.
+* {{RFC9238}} standardizes scanning MUD URLs from QRcodes.
 
 The IDevID mechanism provides a URL that is asserted cryptographically by a manufacturer.
 However, it is difficult for manufacturers to update the IDevID of a device which is already in a box.
@@ -291,9 +291,9 @@ _segment_ seperated by slash ("/") characters.
 The new URL is considered acceptable if it contains the same series of
 segments in its path, excepting that the last segment may be different.
 
-For a simple example, if the canonical MUD-URL is http://example.com/hello/there/file.json then
-any URL that starts with http://example.com/hello/there/ would be acceptable, such as
-http://example.com/hello/there/revision2.json.
+For a simple example, if the canonical MUD-URL is `http://example.com/hello/there/file.json` then
+any URL that starts with `http://example.com/hello/there/` would be acceptable, such as
+`http://example.com/hello/there/revision2.json`
 
 One problem with these small changes is that malware could still express a
 MUD file that was previously valid, but which should no longer considered
@@ -331,22 +331,22 @@ The process also allows a manufacturer to change the EE certificate and Certific
 
 ### Changing file structure {#file-structure-change}
 
-A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
-and wishes to move it to https://example.com/mudfiles/toasters/model1945/mud.json
+A manufacturer has been hosting a MUD file at `https://example.com/household/products/mudfiles/toaster.json`
+and wishes to move it to `https://example.com/mudfiles/toasters/model1945/mud.json`
 
 The manufacturer creates a new MUD file at the new location.
 
-Then the manufacturer changes the MUD-URL contained with the files at the old location to have a value of https://example.com/mudfiles/toasters/model1945/mud.json.
+Then the manufacturer changes the MUD-URL contained with the files at the old location to have a value of ``https://example.com/mudfiles/toasters/model1945/mud.json`
 Note that in order for MUD controllers to reload the old file, it MUST have been served with an appropriate ETag, and appropriate Expires or Cache Control headers {{?RFC9111, Section 5.3}}.
-If control over caching is not possible for the manufacturer, then they need to do this in two steps, with the first step creating a new MUD file at an acceptable location (in the above example, perhaps: https://example.com/household/products/mudfiles/toaster0.json ).
+If control over caching is not possible for the manufacturer, then they need to do this in two steps, with the first step creating a new MUD file at an acceptable location (in the above example, perhaps: `https://example.com/household/products/mudfiles/toaster0.json` ).
 The device then will have to do two firmware updates: one to switch to the intermediate URL, and a second one to switch to the desired final URL.
 
 The manufacturer must continue to serve the files from the old location for some time, or to return an HTTP 301 (Moved Permanently) redirecting to the new location.
 
 ### Changing hosting URLs
 
-A manufacturer has been hosting a MUD file at https://example.com/household/products/mudfiles/toaster.json
-and wishes to move it to https://mud.example/hosthold/products/mudfiles/toaster.json
+A manufacturer has been hosting a MUD file at `https://example.com/household/products/mudfiles/toaster.json`
+and wishes to move it to `https://mud.example/hosthold/products/mudfiles/toaster.json`
 
 The scenario is much the same as for {{file-structure-change}}, and can be handled in the same fashion.
 This situation is likely to occur when one company acquires another.
